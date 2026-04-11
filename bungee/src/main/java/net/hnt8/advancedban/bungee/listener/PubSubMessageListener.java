@@ -23,29 +23,26 @@ public class PubSubMessageListener implements Listener {
 	@EventHandler
     public void onMessageReceive(PubSubMessageEvent e) {
         if (e.getChannel().equals("advancedban:main")) {
-            String result = e.getMessage().replace('§', '&');
-            MiniMessage miniMessage = MiniMessage.miniMessage();
-            LegacyComponentSerializer serializer = LegacyComponentSerializer.legacyAmpersand();
-            result = ChatColor.translateAlternateColorCodes('&', serializer.serialize(miniMessage.deserialize(result)));
+            String raw = e.getMessage();
+            String[] parts = raw.split(" ");
+            String payload = raw.substring((parts[0] + parts[1]).length() + 2);
 
-            String[] msg = result.split(" ");
-            
-            if (e.getMessage().startsWith("kick ")) {
-                if (ProxyServer.getInstance().getPlayer(msg[1]) != null) {
-                    ProxyServer.getInstance().getPlayer(msg[1]).disconnect(e.getMessage().substring((msg[0] + msg[1]).length() + 2));
+            if (raw.startsWith("kick ")) {
+                if (ProxyServer.getInstance().getPlayer(parts[1]) != null) {
+                    ProxyServer.getInstance().getPlayer(parts[1]).disconnect(net.hnt8.advancedban.bungee.BungeeMethods.miniMessageToBaseComponents(payload));
                 }
-            } else if (e.getMessage().startsWith("notification ")) {
+            } else if (raw.startsWith("notification ")) {
                 for (ProxiedPlayer pp : ProxyServer.getInstance().getPlayers()) {
-                    if (mi.hasPerms(pp, msg[1])) {
-                        mi.sendMessage(pp, e.getMessage().substring((msg[0] + msg[1]).length() + 2));
+                    if (mi.hasPerms(pp, parts[1])) {
+                        mi.sendMessage(pp, payload);
                     }
                 }
-            } else if (e.getMessage().startsWith("message ")) {
-                if (ProxyServer.getInstance().getPlayer(msg[1]) != null) {
-                    ProxyServer.getInstance().getPlayer(msg[1]).sendMessage(e.getMessage().substring((msg[0] + msg[1]).length() + 2));
+            } else if (raw.startsWith("message ")) {
+                if (ProxyServer.getInstance().getPlayer(parts[1]) != null) {
+                    ProxyServer.getInstance().getPlayer(parts[1]).sendMessage(net.hnt8.advancedban.bungee.BungeeMethods.miniMessageToBaseComponents(payload));
                 }
-                if (msg[1].equalsIgnoreCase("CONSOLE")) {
-                    ProxyServer.getInstance().getConsole().sendMessage(e.getMessage().substring((msg[0] + msg[1]).length() + 2));
+                if (parts[1].equalsIgnoreCase("CONSOLE")) {
+                    ProxyServer.getInstance().getConsole().sendMessage(net.hnt8.advancedban.bungee.BungeeMethods.miniMessageToLegacy(payload));
                 }
             }
         } else if (e.getChannel().equals("advancedban:connection")) {

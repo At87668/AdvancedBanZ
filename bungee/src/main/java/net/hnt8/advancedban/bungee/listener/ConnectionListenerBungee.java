@@ -31,15 +31,14 @@ public class ConnectionListenerBungee implements Listener {
             String result = Universal.get().callConnection(event.getConnection().getName(), event.getConnection().getAddress().getAddress().getHostAddress());
 
             if (result != null) {
-                MiniMessage miniMessage = MiniMessage.miniMessage();
-                LegacyComponentSerializer serializer = LegacyComponentSerializer.legacyAmpersand();
-                result = ChatColor.translateAlternateColorCodes('&', serializer.serialize(miniMessage.deserialize(result.replace('§', '&'))));
-                
-                if(BungeeMain.getCloudSupport() != null){
-                    BungeeMain.getCloudSupport().kick(event.getConnection().getUniqueId(), result);
-                }else {
+                String legacy = net.hnt8.advancedban.bungee.BungeeMethods.miniMessageToLegacy(result);
+                net.md_5.bungee.api.chat.BaseComponent[] comps = net.hnt8.advancedban.bungee.BungeeMethods.miniMessageToBaseComponents(result);
+
+                if (BungeeMain.getCloudSupport() != null) {
+                    BungeeMain.getCloudSupport().kick(event.getConnection().getUniqueId(), legacy);
+                } else {
                     event.setCancelled(true);
-                    event.setCancelReason(result);
+                    event.setCancelReason(comps);
                 }
             }
 

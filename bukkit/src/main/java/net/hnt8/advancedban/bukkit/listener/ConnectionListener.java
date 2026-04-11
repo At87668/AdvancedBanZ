@@ -22,7 +22,7 @@ public class ConnectionListener implements Listener {
             UUIDManager.get().supplyInternUUID(event.getName(), event.getUniqueId());
             String result = Universal.get().callConnection(event.getName(), event.getAddress().getHostAddress());
             if (result != null) {
-                String legacy = BukkitMethods.miniMessageToLegacy(result.replace('§', '&'));
+                String legacy = net.hnt8.advancedban.bukkit.BukkitMethods.miniMessageToLegacy(result.replace('§', '&'));
                 event.disallow(AsyncPlayerPreLoginEvent.Result.KICK_BANNED, legacy);
             }
         }
