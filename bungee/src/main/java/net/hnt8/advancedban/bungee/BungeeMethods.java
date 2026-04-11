@@ -27,6 +27,7 @@ import net.kyori.adventure.text.minimessage.MiniMessage;
 import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
 import net.kyori.adventure.text.serializer.bungeecord.BungeeComponentSerializer;
 import net.md_5.bungee.api.chat.BaseComponent;
+import net.md_5.bungee.api.chat.TextComponent;
 import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.CommandSender;
 import net.md_5.bungee.api.ProxyServer;
@@ -79,6 +80,29 @@ public class BungeeMethods implements MethodInterface {
 
             getLogger().info("[AdvancedBanZ] No offline permission support through LuckPerms or CloudNet-CloudPerms");
         }
+    }
+
+    public static String miniMessageToLegacy(String input) {
+        MiniMessage mm = MiniMessage.miniMessage();
+        Component comp;
+        try {
+            comp = mm.deserialize(input);
+        } catch (Exception ex) {
+            return input.replace('&', '§');
+        }
+        return LegacyComponentSerializer.legacySection().serialize(comp);
+    }
+
+    public static BaseComponent[] miniMessageToBaseComponents(String input) {
+        MiniMessage mm = MiniMessage.miniMessage();
+        Component comp;
+        try {
+            comp = mm.deserialize(input);
+        } catch (Exception ex) {
+            String legacy = input.replace('&', '§');
+            return TextComponent.fromLegacyText(legacy);
+        }
+        return BungeeComponentSerializer.get().serialize(comp);
     }
 
     @Override
