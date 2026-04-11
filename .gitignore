@@ -92,3 +92,6 @@ local.properties
 *.ear
 /lib
 **/*~
+
+# Gradle
+.gradle/

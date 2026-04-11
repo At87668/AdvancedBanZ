@@ -220,13 +220,20 @@ public class BukkitMethods implements MethodInterface {
     @Override
     public void kickPlayer(String player, String reason) {
         if (getPlayer(player) != null && getPlayer(player).isOnline()) {
-            String result = reason.replace('§', '&');
-            MiniMessage miniMessage = MiniMessage.miniMessage();
-            LegacyComponentSerializer serializer = LegacyComponentSerializer.legacyAmpersand();
-            result = ChatColor.translateAlternateColorCodes('&', serializer.serialize(miniMessage.deserialize(result)));
-            
-            getPlayer(player).kickPlayer(result);
+            String legacy = miniMessageToLegacy(reason);
+            getPlayer(player).kickPlayer(legacy);
         }
+    }
+
+    public static String miniMessageToLegacy(String input) {
+        MiniMessage mm = MiniMessage.miniMessage();
+        Component comp;
+        try {
+            comp = mm.deserialize(input);
+        } catch (Exception ex) {
+            return input.replace('&', '§');
+        }
+        return LegacyComponentSerializer.legacySection().serialize(comp);
     }
 
     @Override

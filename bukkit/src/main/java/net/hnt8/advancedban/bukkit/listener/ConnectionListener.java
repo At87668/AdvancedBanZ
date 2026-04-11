@@ -22,11 +22,8 @@ public class ConnectionListener implements Listener {
             UUIDManager.get().supplyInternUUID(event.getName(), event.getUniqueId());
             String result = Universal.get().callConnection(event.getName(), event.getAddress().getHostAddress());
             if (result != null) {
-                MiniMessage miniMessage = MiniMessage.miniMessage();
-                LegacyComponentSerializer serializer = LegacyComponentSerializer.legacyAmpersand();
-                result = ChatColor.translateAlternateColorCodes('&', serializer.serialize(miniMessage.deserialize(result.replace('§', '&'))));
-                
-                event.disallow(AsyncPlayerPreLoginEvent.Result.KICK_BANNED, result);
+                String legacy = BukkitMethods.miniMessageToLegacy(result.replace('§', '&'));
+                event.disallow(AsyncPlayerPreLoginEvent.Result.KICK_BANNED, legacy);
             }
         }
     }

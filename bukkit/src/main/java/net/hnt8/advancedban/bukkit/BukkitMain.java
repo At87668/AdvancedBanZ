@@ -39,11 +39,7 @@ public class BukkitMain extends JavaPlugin {
             AsyncPlayerPreLoginEvent apple = new AsyncPlayerPreLoginEvent(player.getName(), player.getAddress().getAddress(), player.getUniqueId());
             connListener.onConnect(apple);
             if (apple.getLoginResult() == AsyncPlayerPreLoginEvent.Result.KICK_BANNED) {
-                String result = apple.getKickMessage().replace('§', '&');
-                MiniMessage miniMessage = MiniMessage.miniMessage();
-                LegacyComponentSerializer serializer = LegacyComponentSerializer.legacyAmpersand();
-                result = ChatColor.translateAlternateColorCodes('&', serializer.serialize(miniMessage.deserialize(result)));
-                
+                String result = BukkitMethods.miniMessageToLegacy(apple.getKickMessage());
                 player.kickPlayer(result);
             }
         });

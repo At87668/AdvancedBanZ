@@ -14,11 +14,7 @@ public class CloudNetV2Support implements CloudSupport {
 
     @Override
     public void kick(UUID uniqueID, String reason) {
-        String result = reason.replace('§', '&');
-        MiniMessage miniMessage = MiniMessage.miniMessage();
-        LegacyComponentSerializer serializer = LegacyComponentSerializer.legacyAmpersand();
-        result = ChatColor.translateAlternateColorCodes('&', serializer.serialize(miniMessage.deserialize(result)));
-        
-        PlayerExecutorBridge.INSTANCE.kickPlayer(CloudServer.getInstance().getCloudPlayers().get(uniqueID), result);
+        String legacy = net.hnt8.advancedban.bungee.BungeeMethods.miniMessageToLegacy(reason);
+        PlayerExecutorBridge.INSTANCE.kickPlayer(CloudServer.getInstance().getCloudPlayers().get(uniqueID), legacy);
     }
 }

@@ -13,11 +13,7 @@ public class CloudNetV3Support implements CloudSupport {
 
     @Override
     public void kick(UUID uniqueID, String reason) {
-        String result = reason.replace('§', '&');
-        MiniMessage miniMessage = MiniMessage.miniMessage();
-        LegacyComponentSerializer serializer = LegacyComponentSerializer.legacyAmpersand();
-        result = ChatColor.translateAlternateColorCodes('&', serializer.serialize(miniMessage.deserialize(result)));
-        
-        CloudNetDriver.getInstance().getServicesRegistry().getFirstService(IPlayerManager.class).getPlayerExecutor(uniqueID).kick(result);
+        String legacy = net.hnt8.advancedban.bungee.BungeeMethods.miniMessageToLegacy(reason);
+        CloudNetDriver.getInstance().getServicesRegistry().getFirstService(IPlayerManager.class).getPlayerExecutor(uniqueID).kick(legacy);
     }
 }
