@@ -1,8 +1,8 @@
-name: AdvancedBanX
+name: AdvancedBanZ
 version: ${project.version}
 main: ${project.groupId}.bukkit.BukkitMain
-authors: ["Leoko", "2vY"]
-prefix: AdvancedBanX
+authors: ["Author87668", "Leoko", "2vY"]
+prefix: AdvancedBanZ
 softdepend: [Vault]
 api-version: 1.13
 

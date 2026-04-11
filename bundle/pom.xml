@@ -6,23 +6,23 @@
     
     <parent>
         <groupId>net.hnt8.advancedban</groupId>
-        <artifactId>AdvancedBanX</artifactId>
+        <artifactId>AdvancedBanZ</artifactId>
         <version>3.1.0</version>
     </parent>
 
-    <artifactId>AdvancedBanX-Bundle</artifactId>
+    <artifactId>AdvancedBanZ-Bundle</artifactId>
     <packaging>jar</packaging>
 
     <dependencies>
         <dependency>
             <groupId>net.hnt8.advancedban</groupId>
-            <artifactId>AdvancedBanX-Bukkit</artifactId>
+            <artifactId>AdvancedBanZ-Bukkit</artifactId>
             <version>${project.version}</version>
             <scope>runtime</scope>
         </dependency>
         <dependency>
             <groupId>net.hnt8.advancedban</groupId>
-            <artifactId>AdvancedBanX-Bungee</artifactId>
+            <artifactId>AdvancedBanZ-Bungee</artifactId>
             <version>${project.version}</version>
             <scope>runtime</scope>
         </dependency>

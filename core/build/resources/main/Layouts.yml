@@ -1,0 +1,49 @@
+# AdvancedBan v3 - Coded by Leoko, Update & Maintained by 2vY (hlpdev)
+# MiniMessage Formatting (https://docs.advntr.dev/minimessage/format.html) are available in all strings
+# Legacy (&/§) formatting is not supported and will cause errors
+
+# The default layouts are in the Message.yml file!
+
+# Message-Layouts can not only be used for bans but also for mutes and warns
+# Currently available variables:
+#   %OPERATOR% - The user who dealt the punishment.
+#   %REASON% - Reason for punishment.
+#   %PREFIX% - Prefix set in Message.yml.
+#   %DURATION% - Amount of time left before a punishment expires (will be -1 for permanent punishments).
+#   %DATE% - Date punishment was issued on.
+#   %ID% - Displays the punishment ID (i.e. first punishment = 0, second punishment = 1, third punishment = 2, etc.)
+#   %HEXID% - Displays the punishment ID in base 16. 
+# For warns you have also the variable %COUNT% which will be
+# replaced with the current amount of warns the player already received
+# Example usage: /ban Leoko @ExampleLayout
+Message:
+  ExampleLayout:
+    - '%PREFIX% <gray>Banned for Hacking</gray>'
+    - '<red><italic>Banned by %OPERATOR%</italic></red>'
+    - ''
+    - "<red>It seems like you are using a</red>"
+    - "<red>hacked client please disable it!</red>"
+    - "<red>Unban in <dark_gray>»</dark_gray> <gray>%DURATION%</gray></red>"
+    - ''
+    - '<dark_gray>Unban application in TS or forum</dark_gray>'
+    - "<yellow>TS-Ip</yellow> <dark_gray>»</dark_gray> <red><underlined>coming soon</underlined></red>"
+    - "<yellow>Forum</yellow> <dark_gray>»</dark_gray> <red><underlined>coming soon</underlined></red>"
+  ExampleLayout2:
+    - '%PREFIX% <gray>Banned for offensive language</gray>'
+    - ''
+    - "<red>We don't tolerate swearing on our server!</red>"
+    - "<red>You got banned for the word '%REASON%'</red>" # You can even use reasons in message layouts
+
+# You would use this time-layout for example like this: "/tempban Leoko #ExampleLayout Hacking in FFA"
+# Or with "/tempwarn Leoko #ExampleLayout Advertising" or even "/tempwarn Leoko #ExampleLayout No capslock please"
+# You can also combine this with MessageLayouts like "/tempban Leoko #ExampleLayout @Hacking"
+Time:
+  ExampleLayout:
+    - '30m'
+    - '2h'
+    - '1d'
+    - '1w'
+    - '1mo'
+    - '2mo'
+    - '4mo'
+    - 'perma'

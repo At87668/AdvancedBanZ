@@ -176,7 +176,7 @@ public class BukkitMethods implements MethodInterface {
                     return tabCompleter.onTabComplete(commandSender, args);
                 });
         } else {
-            BukkitMain.get().getLogger().warning("AdvancedBanX >> Failed to register command " + cmd);
+            BukkitMain.get().getLogger().warning("AdvancedBanZ >> Failed to register command " + cmd);
         }
     }
 

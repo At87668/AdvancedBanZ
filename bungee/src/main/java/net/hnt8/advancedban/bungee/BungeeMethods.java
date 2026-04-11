@@ -25,6 +25,8 @@ import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.TextReplacementConfig;
 import net.kyori.adventure.text.minimessage.MiniMessage;
 import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
+import net.kyori.adventure.text.serializer.bungeecord.BungeeComponentSerializer;
+import net.md_5.bungee.api.chat.BaseComponent;
 import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.CommandSender;
 import net.md_5.bungee.api.ProxyServer;
@@ -67,15 +69,15 @@ public class BungeeMethods implements MethodInterface {
         if (ProxyServer.getInstance().getPluginManager().getPlugin("LuckPerms") != null) {
             permissionableGenerator = LuckPermsOfflineUser::new;
 
-            getLogger().info("[AdvancedBanX] Offline permission support through LuckPerms active");
+            getLogger().info("[AdvancedBanZ] Offline permission support through LuckPerms active");
         } else if (ProxyServer.getInstance().getPluginManager().getPlugin("CloudNet-CloudPerms") != null) {
             permissionableGenerator = CloudNetCloudPermsOfflineUser::new;
 
-            getLogger().info("[AdvancedBanX] Offline permission support through CloudNet-CloudPerms active");
+            getLogger().info("[AdvancedBanZ] Offline permission support through CloudNet-CloudPerms active");
         } else {
             permissionableGenerator = null;
 
-            getLogger().info("[AdvancedBanX] No offline permission support through LuckPerms or CloudNet-CloudPerms");
+            getLogger().info("[AdvancedBanZ] No offline permission support through LuckPerms or CloudNet-CloudPerms");
         }
     }
 
@@ -193,9 +195,17 @@ public class BungeeMethods implements MethodInterface {
     @Override
     public void sendMessage(Object player, String msg) {
         MiniMessage miniMessage = MiniMessage.miniMessage();
-
         TextReplacementConfig replacementConfig = TextReplacementConfig.builder().matchLiteral("&").replacement("§").build();
-        Component msgComponent = miniMessage.deserialize(msg).replaceText(replacementConfig);
+        Component msgComponent;
+        try {
+            msgComponent = miniMessage.deserialize(msg).replaceText(replacementConfig);
+        } catch (Exception ex) {
+            // Fallback: message contains legacy formatting codes (§) or mixed formats.
+            // Convert ampersand to section and deserialize as legacy formatted text.
+            String legacy = msg.replace('&', '§');
+            LegacyComponentSerializer legacySerializer = LegacyComponentSerializer.legacySection();
+            msgComponent = legacySerializer.deserialize(legacy);
+        }
 
         BungeeAudiences adventure = BungeeMain.getAdventure();
         Audience audience = adventure.sender((CommandSender)player);
@@ -240,17 +250,30 @@ public class BungeeMethods implements MethodInterface {
 
     @Override
     public void kickPlayer(String player, String reason) {
-        String result = reason.replace('§', '&');
+        String input = reason;
         MiniMessage miniMessage = MiniMessage.miniMessage();
-        LegacyComponentSerializer serializer = LegacyComponentSerializer.legacyAmpersand();
-        result = ChatColor.translateAlternateColorCodes('&', serializer.serialize(miniMessage.deserialize(result)));
-        
-        if(BungeeMain.getCloudSupport() != null){
-            BungeeMain.getCloudSupport().kick(getPlayer(player).getUniqueId(), result);
-        }else if (Universal.isRedis()) {
-            RedisBungee.getApi().sendChannelMessage("advancedban:main", "kick " + player + " " + result);
+        Component comp;
+        try {
+            comp = miniMessage.deserialize(input);
+        } catch (Exception ex) {
+            // fallback to legacy with ampersand -> section
+            String legacy = input.replace('&', '§');
+            LegacyComponentSerializer legacySerializer = LegacyComponentSerializer.legacySection();
+            comp = legacySerializer.deserialize(legacy);
+        }
+
+        // Convert to Bungee BaseComponent[] to preserve interactive events when sending via Bungee
+        BaseComponent[] bungeeComponents = BungeeComponentSerializer.get().serialize(comp);
+
+        if (BungeeMain.getCloudSupport() != null) {
+            // Cloud support expects a plain string; send legacy serialisation as fallback
+            String legacy = LegacyComponentSerializer.legacySection().serialize(comp);
+            BungeeMain.getCloudSupport().kick(getPlayer(player).getUniqueId(), legacy);
+        } else if (Universal.isRedis()) {
+            String legacy = LegacyComponentSerializer.legacySection().serialize(comp);
+            RedisBungee.getApi().sendChannelMessage("advancedban:main", "kick " + player + " " + legacy);
         } else {
-            getPlayer(player).disconnect(TextComponent.fromLegacyText(result));
+            getPlayer(player).disconnect(bungeeComponents);
         }
     }
 

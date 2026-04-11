@@ -57,12 +57,32 @@ public class InternalListener implements Listener {
                 String message = in.readUTF();
                 try {
                     JsonObject punishment = universal.getGson().fromJson(message, JsonObject.class);
+
+                    String rawType = punishment.get("punishmenttype") != null ? punishment.get("punishmenttype").getAsString() : null;
+                    net.hnt8.advancedban.utils.PunishmentType pType = null;
+                    if (rawType != null) {
+                        // Try command-based mapping first (handles "warn"/"note"), then enum name
+                        pType = net.hnt8.advancedban.utils.PunishmentType.fromCommandName(rawType.toLowerCase());
+                        if (pType == null) {
+                            try {
+                                pType = net.hnt8.advancedban.utils.PunishmentType.valueOf(rawType.toUpperCase());
+                            } catch (IllegalArgumentException ignored) {
+                                // leave pType null
+                            }
+                        }
+                    }
+
+                    if (pType == null) {
+                        universal.getLogger().severe("Unknown punishment type received from plugin messaging: " + rawType + ". Skipping.");
+                        break;
+                    }
+
                     new Punishment(
                             punishment.get("name").getAsString(),
                             UUIDManager.get().getUUID(punishment.get("uuid").getAsString()),
                             punishment.get("reason").getAsString(),
                             punishment.get("operator") != null ? punishment.get("operator").getAsString() : "CONSOLE",
-                            PunishmentType.valueOf(punishment.get("punishmenttype").getAsString().toUpperCase()),
+                            pType,
                             punishment.get("start") != null ? punishment.get("start").getAsLong() : TimeManager.getTime(),
                             TimeManager.getTime() + punishment.get("end").getAsLong(),
                             punishment.get("calculation") != null ? punishment.get("calculation").getAsString() : null,
@@ -74,7 +94,7 @@ public class InternalListener implements Listener {
                     universal.getLogger().severe("An exception as occurred while reading a punishment from plugin messaging channel.");
                     universal.getLogger().fine("Message: " + message);
                     universal.getLogger().fine("StackTrace:");
-                    
+
                     StringWriter stringWriter = new StringWriter();
                     PrintWriter printWriter = new PrintWriter(stringWriter);
                     ex.printStackTrace(printWriter);

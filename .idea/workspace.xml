@@ -57,7 +57,7 @@
 }</component>
   <component name="GithubPullRequestsUISettings">{
   &quot;selectedUrlAndAccountId&quot;: {
-    &quot;url&quot;: &quot;https://github.com/hlpdev/AdvancedBanX&quot;,
+    &quot;url&quot;: &quot;https://github.com/hlpdev/AdvancedBanZ&quot;,
     &quot;accountId&quot;: &quot;530d6ce5-a2b4-490b-aae6-aa367116cae9&quot;
   }
 }</component>
@@ -77,18 +77,18 @@
   &quot;keyToString&quot;: {
     &quot;JAR Application.Unnamed.executor&quot;: &quot;Run&quot;,
     &quot;JUnit.DatabaseTest.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.java in AdvancedBanX-Core.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.java in AdvancedBanZ-Core.executor&quot;: &quot;Run&quot;,
     &quot;Maven.AdvancedBan.executor&quot;: &quot;Run&quot;,
-    &quot;Maven.AdvancedBanX [package].executor&quot;: &quot;Run&quot;,
-    &quot;Maven.AdvancedBanX-Bundle [org.apache.maven.plugins:maven-jar-plugin:3.3.0:jar].executor&quot;: &quot;Run&quot;,
-    &quot;Maven.Build AdvancedBanX.executor&quot;: &quot;Run&quot;,
-    &quot;Maven.Deploy AdvancedBanX.executor&quot;: &quot;Run&quot;,
-    &quot;Maven.Publish AdvancedBanX.executor&quot;: &quot;Run&quot;,
+    &quot;Maven.AdvancedBanZ [package].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.AdvancedBanZ-Bundle [org.apache.maven.plugins:maven-jar-plugin:3.3.0:jar].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.Build AdvancedBanZ.executor&quot;: &quot;Run&quot;,
+    &quot;Maven.Deploy AdvancedBanZ.executor&quot;: &quot;Run&quot;,
+    &quot;Maven.Publish AdvancedBanZ.executor&quot;: &quot;Run&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;git-widget-placeholder&quot;: &quot;master&quot;,
     &quot;jdk.selected.com.intellij.ui.dsl.builder.impl.RowImpl.sdk&quot;: &quot;openjdk-22&quot;,
     &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;D:/AdvancedBanX&quot;,
+    &quot;last_opened_file_path&quot;: &quot;D:/AdvancedBanZ&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
@@ -108,11 +108,11 @@
 }</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
-      <recent name="D:\AdvancedBanX\javadocs" />
+      <recent name="D:\AdvancedBanZ\javadocs" />
     </key>
   </component>
-  <component name="RunManager" selected="Maven.Deploy AdvancedBanX">
-    <configuration name="Build AdvancedBanX" type="MavenRunConfiguration" factoryName="Maven">
+  <component name="RunManager" selected="Maven.Deploy AdvancedBanZ">
+    <configuration name="Build AdvancedBanZ" type="MavenRunConfiguration" factoryName="Maven">
       <MavenSettings>
         <option name="myGeneralSettings" />
         <option name="myRunnerSettings" />
@@ -142,7 +142,7 @@
       </MavenSettings>
       <method v="2" />
     </configuration>
-    <configuration name="Deploy AdvancedBanX" type="MavenRunConfiguration" factoryName="Maven">
+    <configuration name="Deploy AdvancedBanZ" type="MavenRunConfiguration" factoryName="Maven">
       <MavenSettings>
         <option name="myGeneralSettings">
           <MavenGeneralSettings>
@@ -217,12 +217,12 @@
         </option>
       </MavenSettings>
       <method v="2">
-        <option name="RunConfigurationTask" enabled="true" run_configuration_name="Build AdvancedBanX" run_configuration_type="MavenRunConfiguration" />
+        <option name="RunConfigurationTask" enabled="true" run_configuration_name="Build AdvancedBanZ" run_configuration_type="MavenRunConfiguration" />
       </method>
     </configuration>
     <list>
-      <item itemvalue="Maven.Build AdvancedBanX" />
-      <item itemvalue="Maven.Deploy AdvancedBanX" />
+      <item itemvalue="Maven.Build AdvancedBanZ" />
+      <item itemvalue="Maven.Deploy AdvancedBanZ" />
     </list>
   </component>
   <component name="SharedIndexes">
@@ -393,7 +393,7 @@
       <option name="project" value="LOCAL" />
       <updated>1717619325018</updated>
     </task>
-    <task id="LOCAL-00044" summary="Changed the Bundle module output file to take the name of the parent project instead of itself. The new output jar will be named &quot;AdvancedBanX-0.0.0.jar&quot; instead of &quot;AdvancedBanX-Bundle-0.0.0.jar&quot;">
+    <task id="LOCAL-00044" summary="Changed the Bundle module output file to take the name of the parent project instead of itself. The new output jar will be named &quot;AdvancedBanZ-0.0.0.jar&quot; instead of &quot;AdvancedBanZ-Bundle-0.0.0.jar&quot;">
       <option name="closed" value="true" />
       <created>1717619461999</created>
       <option name="number" value="00044" />

@@ -15,8 +15,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 /**
- * The Database Manager is used to interact directly with the database is use.<br>
- * Will automatically direct the requests to either MySQL or HSQLDB.
+ * The Database Manager is used to interact directly with the database in use.<br>
+ * Will automatically direct the requests to either MySQL or SQLite.
  * <br><br>
  * Looking to request {@link Punishment Punishments} from the Database?
  * Use {@link PunishmentManager#getPunishments(SQLQuery, Object...)} or
@@ -43,7 +43,7 @@ public class DatabaseManager {
     /**
      * Initially connects to the database and sets up the required tables of they don't already exist.
      *
-     * @param useMySQLServer whether to preferably use MySQL (uses HSQLDB as fallback)
+    * @param useMySQLServer whether to preferably use MySQL (uses SQLite as fallback)
      */
     public void setup(boolean useMySQLServer) {
         useMySQL = useMySQLServer;
@@ -61,19 +61,18 @@ public class DatabaseManager {
     }
 
     /**
-     * Shuts down the HSQLDB if used.
+     * Shutdown database connections and resources.
      */
     public void shutdown() {
-        if (!useMySQL) {
-            try(Connection connection = dataSource.getConnection(); final PreparedStatement statement = connection.prepareStatement("SHUTDOWN")){
-                statement.execute();
-            }catch (SQLException | NullPointerException exc){
-                Universal.get().getLogger().warning("An unexpected error has occurred turning off the database");
-                Universal.get().debugException(exc);
+        // For SQLite no explicit SQL shutdown is required; closing the datasource is sufficient.
+        try {
+            if (dataSource != null) {
+                dataSource.close();
             }
+        } catch (Exception exc) {
+            Universal.get().getLogger().warning("An unexpected error has occurred while closing the database");
+            Universal.get().debugException(exc);
         }
-
-        dataSource.close();
     }
     
     private CachedRowSet createCachedRowSet() throws SQLException {
@@ -124,8 +123,8 @@ public class DatabaseManager {
     	} catch (SQLException ex) {
     		Universal.get().getLogger().severe(
    					"An unexpected error has occurred executing an Statement in the database\n"
-   							+ "Please check the plugins/AdvancedBanX/logs/latest.log file and report this "
-    						+ "error in: https://github.com/hlpdev/AdvancedBanX/issues/new"
+   							+ "Please check the plugins/AdvancedBanZ/logs/latest.log file and report this "
+    						+ "error in: https://github.com/hlpdev/AdvancedBanZ/issues/new"
     				);
     		Universal.get().getLogger().fine("Query: \n" + sql);
     		Universal.get().debugSqlException(ex);
@@ -133,8 +132,8 @@ public class DatabaseManager {
             Universal.get().getLogger().severe(
                     "An unexpected error has occurred connecting to the database\n"
                             + "Check if your MySQL data is correct and if your MySQL-Server is online\n"
-                            + "Please check the plugins/AdvancedBanX/logs/latest.log file and report this "
-                            + "error in: https://github.com/hlpdev/AdvancedBanX/issues/new"
+                            + "Please check the plugins/AdvancedBanZ/logs/latest.log file and report this "
+                            + "error in: https://github.com/hlpdev/AdvancedBanZ/issues/new"
             );
             Universal.get().debugException(ex);
         }

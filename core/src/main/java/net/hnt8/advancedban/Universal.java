@@ -57,7 +57,7 @@ public class Universal {
     }
 
     /**
-     * Get AdvancedBanX's logger
+     * Get AdvancedBanZ's logger
      * 
      * @return the plugin logger
      */
@@ -107,22 +107,22 @@ public class Universal {
         }
 
         if (mi.getBoolean(mi.getConfig(), "DetailedEnableMessage", true)) {
-            String message = "\n\n<dark_gray>[]=====[<red>Enabling AdvancedBanX</red>]=====[]</dark_gray>"
+            String message = "\n\n<dark_gray>[]=====[<red>Enabling AdvancedBanZ</red>]=====[]</dark_gray>"
                            + "\n<dark_gray>|</dark_gray> <red>Information:</red>"
-                           + "\n<dark_gray>|</dark_gray>   <red>Name:</red> <gray>AdvancedBanX</gray>"
+                           + "\n<dark_gray>|</dark_gray>   <red>Name:</red> <gray>AdvancedBanZ</gray>"
                            + "\n<dark_gray>|</dark_gray>   <red>Developer:</red> <gray>Leoko</gray>"
-                           + "\n<dark_gray>|</dark_gray>   <red>Maintainer & Updater:</red> <gray>2vY</gray>"
+                           + "\n<dark_gray>|</dark_gray>   <red>Maintainer & Updater:</red> <gray>Author87668, 2vY</gray>"
                            + "\n<dark_gray>|</dark_gray>   <red>Version:</red> <gray>" + mi.getVersion() + "</gray>"
-                           + "\n<dark_gray>|</dark_gray>   <red>Storage:</red> <gray>" + (DatabaseManager.get().isUseMySQL() ? "MySQL (external)" : "HSQLDB (local)") + "</gray>"
+                           + "\n<dark_gray>|</dark_gray>   <red>Storage:</red> <gray>" + (DatabaseManager.get().isUseMySQL() ? "MySQL (external)" : "SQLite (local)") + "</gray>"
                            + "\n<dark_gray>|</dark_gray> <red>Support:</red>"
-                           + "\n<dark_gray>|</dark_gray>   <red>GitHub:</red> <gray>https://github.com/hlpdev/AdvancedBanX/issues</gray>"
+                           + "\n<dark_gray>|</dark_gray>   <red>GitHub:</red> <gray>https://github.com/At87668/AdvancedBanZ/issues</gray>"
                            + "\n<dark_gray>|</dark_gray> <red>Update:</red>"
                            + "\n<dark_gray>|</dark_gray>   <gray>" + upt  + "</gray>"
                            + "\n<dark_gray>[]================================[]</dark_gray>\n ";
             
             mi.getLogger().info(SerializeMiniMessage(message));
         } else {
-            mi.getLogger().info(SerializeMiniMessage("<red>Enabling AdvancedBanX on Version</red> <gray>" + mi.getVersion() + "</gray>"));
+            mi.getLogger().info(SerializeMiniMessage("<red>Enabling AdvancedBanZ on Version</red> <gray>" + mi.getVersion() + "</gray>"));
             mi.getLogger().info(SerializeMiniMessage("<red>Coded by <gray>Leoko</gray> <dark_gray>|</dark_gray> Maintained & Updated by <gray>2vY</gray></red>"));
         }
     }
@@ -134,20 +134,20 @@ public class Universal {
         DatabaseManager.get().shutdown();
 
         if (mi.getBoolean(mi.getConfig(), "DetailedDisableMessage", true)) {
-            String message = "\n\n<dark_gray>[]=====[<red>Disabling AdvancedBanX</red>]=====[]</dark_gray>"
+            String message = "\n\n<dark_gray>[]=====[<red>Disabling AdvancedBanZ</red>]=====[]</dark_gray>"
                     + "\n<dark_gray>|</dark_gray> <red>Information:</red>"
-                    + "\n<dark_gray>|</dark_gray>   <red>Name:</red> <gray>AdvancedBanX</gray>"
+                    + "\n<dark_gray>|</dark_gray>   <red>Name:</red> <gray>AdvancedBanZ</gray>"
                     + "\n<dark_gray>|</dark_gray>   <red>Developer:</red> <gray>Leoko</gray>"
-                    + "\n<dark_gray>|</dark_gray>   <red>Maintainer & Updater:</red> <gray>2vY</gray>"
+                    + "\n<dark_gray>|</dark_gray>   <red>Maintainer & Updater:</red> <gray>Author87668, 2vY</gray>"
                     + "\n<dark_gray>|</dark_gray>   <red>Version:</red> <gray>" + mi.getVersion() + "</gray>"
-                    + "\n<dark_gray>|</dark_gray>   <red>Storage:</red> <gray>" + (DatabaseManager.get().isUseMySQL() ? "MySQL (external)" : "HSQLDB (local)") + "</gray>"
+                    + "\n<dark_gray>|</dark_gray>   <red>Storage:</red> <gray>" + (DatabaseManager.get().isUseMySQL() ? "MySQL (external)" : "SQLite (local)") + "</gray>"
                     + "\n<dark_gray>|</dark_gray> <red>Support:</red>"
-                    + "\n<dark_gray>|</dark_gray>   <red>GitHub:</red> <gray>https://github.com/hlpdev/AdvancedBanX/issues</gray>"
+                    + "\n<dark_gray>|</dark_gray>   <red>GitHub:</red> <gray>https://github.com/At87668/AdvancedBanZ/issues</gray>"
                     + "\n<dark_gray>[]================================[]</dark_gray>\n ";
             
             mi.getLogger().info(SerializeMiniMessage(message));
         } else {
-            mi.getLogger().info(SerializeMiniMessage("<red>Disabling AdvancedBanX on Version</red> <gray>" + mi.getVersion() + "</gray>"));
+            mi.getLogger().info(SerializeMiniMessage("<red>Disabling AdvancedBanZ on Version</red> <gray>" + mi.getVersion() + "</gray>"));
             mi.getLogger().info(SerializeMiniMessage("<red>Coded by <gray>Leoko</gray> <dark_gray>|</dark_gray> Maintained & Updated by <gray>2vY</gray></red>"));
         }
     }

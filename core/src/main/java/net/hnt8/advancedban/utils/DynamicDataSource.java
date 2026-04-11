@@ -4,6 +4,8 @@ import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 import net.hnt8.advancedban.MethodInterface;
 import net.hnt8.advancedban.Universal;
+import java.io.File;
+import java.io.IOException;
 
 public class DynamicDataSource {
     private HikariConfig config = new HikariConfig();
@@ -23,13 +25,35 @@ public class DynamicDataSource {
             config.setUsername(usrName);
             config.setPassword(password);
         } else {
-            // No need to worry about relocation because the maven-shade-plugin also changes strings
-            String driverClassName = "org.hsqldb.jdbc.JDBCDriver";
+            // Use SQLite for local storage by default
+            String driverClassName = "org.sqlite.JDBC";
+
+            // Ensure plugin data folder /data exists and DB file is created
+            File dataFolder = mi.getDataFolder();
+            File dataDir = new File(dataFolder, "data");
+            if (!dataDir.exists()) {
+                boolean ok = dataDir.mkdirs();
+                if (!ok) {
+                    throw new ClassNotFoundException("Could not create data directory: " + dataDir.getAbsolutePath());
+                }
+            }
+
+            File dbFile = new File(dataDir, "storage.db");
+            try {
+                if (!dbFile.exists()) {
+                    dbFile.createNewFile();
+                }
+            } catch (IOException e) {
+                Universal.get().getLogger().severe("Failed to create SQLite database file: " + dbFile.getAbsolutePath());
+                throw new ClassNotFoundException("Failed to create sqlite db file", e);
+            }
+
             Class.forName(driverClassName);
             config.setDriverClassName(driverClassName);
-            config.setJdbcUrl("jdbc:hsqldb:file:" + mi.getDataFolder().getPath() + "/data/storage;hsqldb.lock_file=false");
-            config.setUsername("SA");
-            config.setPassword("");
+            // store database as file 'storage.db' inside plugin data folder
+            String jdbcPath = dbFile.getAbsolutePath().replace('\\', '/');
+            config.setJdbcUrl("jdbc:sqlite:" + jdbcPath);
+            // SQLite does not require username/password
         }
     }
 

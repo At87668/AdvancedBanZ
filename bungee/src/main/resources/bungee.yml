@@ -1,6 +1,6 @@
-name: AdvancedBanX
+name: AdvancedBanZ
 version: ${project.version}
 main: ${project.groupId}.bungee.BungeeMain
-authors: ["Leoko", "2vY"]
-prefix: AdvancedBanX
+authors: ["Author87668", "Leoko", "2vY"]
+prefix: AdvancedBanZ
 softDepends: [RedisBungee, LuckPerms]

@@ -1,0 +1,6 @@
+name: AdvancedBanZ
+version: 4.0.0
+main: net.hnt8.advancedban.bungee.BungeeMain
+authors: ["Author87668", "Leoko", "2vY"]
+prefix: AdvancedBanZ
+softDepends: [RedisBungee, LuckPerms]

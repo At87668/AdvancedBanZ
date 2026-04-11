@@ -8,69 +8,69 @@ import net.hnt8.advancedban.manager.DatabaseManager;
 public enum SQLQuery {
     CREATE_TABLE_PUNISHMENT(
             "CREATE TABLE IF NOT EXISTS `Punishments` ("+
-            "`id` int NOT NULL AUTO_INCREMENT," +
-            "`name` VARCHAR(16) NULL DEFAULT NULL," +
-            "`uuid` VARCHAR(35) NULL DEFAULT NULL," +
-            "`reason` VARCHAR(255) NULL DEFAULT NULL," +
-            "`operator` VARCHAR(16) NULL DEFAULT NULL," +
-            "`punishmentType` VARCHAR(16) NULL DEFAULT NULL," +
-            "`start` LONG DEFAULT NULL," +
-            "`end` LONG DEFAULT NULL," +
-            "`calculation` VARCHAR(50) NULL DEFAULT NULL," +
-            "PRIMARY KEY (`id`))",
+                    "`id` int NOT NULL AUTO_INCREMENT," +
+                    "`name` VARCHAR(16) NULL DEFAULT NULL," +
+                    "`uuid` VARCHAR(35) NULL DEFAULT NULL," +
+                    "`reason` VARCHAR(255) NULL DEFAULT NULL," +
+                    "`operator` VARCHAR(16) NULL DEFAULT NULL," +
+                    "`punishmentType` VARCHAR(16) NULL DEFAULT NULL," +
+                    "`start` LONG DEFAULT NULL," +
+                    "`end` LONG DEFAULT NULL," +
+                    "`calculation` VARCHAR(50) NULL DEFAULT NULL," +
+                    "PRIMARY KEY (`id`))",
 
             "CREATE TABLE IF NOT EXISTS Punishments (" +
-            "id INTEGER IDENTITY PRIMARY KEY," +
-            "name VARCHAR(16)," +
-            "uuid VARCHAR(35)," +
-            "reason VARCHAR(255)," +
-            "operator VARCHAR(16)," +
-            "punishmentType VARCHAR(16)," +
-            "start BIGINT," +
-            "end BIGINT," +
-            "calculation VARCHAR(50))"
+                    "id INTEGER PRIMARY KEY AUTOINCREMENT," +
+                    "name TEXT," +
+                    "uuid TEXT," +
+                    "reason TEXT," +
+                    "operator TEXT," +
+                    "punishmentType TEXT," +
+                    "start INTEGER," +
+                    "end INTEGER," +
+                    "calculation TEXT)"
     ),
     CREATE_TABLE_PUNISHMENT_HISTORY(
             "CREATE TABLE IF NOT EXISTS `PunishmentHistory` (" +
-            "`id` int NOT NULL AUTO_INCREMENT," +
-            "`name` VARCHAR(16) NULL DEFAULT NULL," +
-            "`uuid` VARCHAR(35) NULL DEFAULT NULL," +
-            "`reason` VARCHAR(255) NULL DEFAULT NULL," +
-            "`operator` VARCHAR(16) NULL DEFAULT NULL," +
-            "`punishmentType` VARCHAR(16) NULL DEFAULT NULL," +
-            "`start` LONG DEFAULT NULL," +
-            "`end` LONG DEFAULT NULL," +
-            "`calculation` VARCHAR(50) NULL DEFAULT NULL," +
-            "PRIMARY KEY (`id`))",
+                    "`id` int NOT NULL AUTO_INCREMENT," +
+                    "`name` VARCHAR(16) NULL DEFAULT NULL," +
+                    "`uuid` VARCHAR(35) NULL DEFAULT NULL," +
+                    "`reason` VARCHAR(255) NULL DEFAULT NULL," +
+                    "`operator` VARCHAR(16) NULL DEFAULT NULL," +
+                    "`punishmentType` VARCHAR(16) NULL DEFAULT NULL," +
+                    "`start` LONG DEFAULT NULL," +
+                    "`end` LONG DEFAULT NULL," +
+                    "`calculation` VARCHAR(50) NULL DEFAULT NULL," +
+                    "PRIMARY KEY (`id`))",
 
             "CREATE TABLE IF NOT EXISTS PunishmentHistory (" +
-            "id INTEGER IDENTITY PRIMARY KEY," +
-            "name VARCHAR(16)," +
-            "uuid VARCHAR(35)," +
-            "reason VARCHAR(255)," +
-            "operator VARCHAR(16)," +
-            "punishmentType VARCHAR(16)," +
-            "start BIGINT," +
-            "end BIGINT," +
-            "calculation VARCHAR(50))"
+                    "id INTEGER PRIMARY KEY AUTOINCREMENT," +
+                    "name TEXT," +
+                    "uuid TEXT," +
+                    "reason TEXT," +
+                    "operator TEXT," +
+                    "punishmentType TEXT," +
+                    "start INTEGER," +
+                    "end INTEGER," +
+                    "calculation TEXT)"
     ),
     INSERT_PUNISHMENT(
             "INSERT INTO `Punishments` " +
-            "(`name`, `uuid`, `reason`, `operator`, `punishmentType`, `start`, `end`, `calculation`) " +
-            "VALUES (?, ?, ?, ?, ?, ?, ?, ?)",
+                    "(`name`, `uuid`, `reason`, `operator`, `punishmentType`, `start`, `end`, `calculation`) " +
+                    "VALUES (?, ?, ?, ?, ?, ?, ?, ?)",
 
             "INSERT INTO Punishments " +
-            "(name, uuid, reason, operator, punishmentType, start, end, calculation) " +
-            "VALUES (?, ?, ?, ?, ?, ?, ?, ?)"
+                    "(name, uuid, reason, operator, punishmentType, start, end, calculation) " +
+                    "VALUES (?, ?, ?, ?, ?, ?, ?, ?)"
     ),
     INSERT_PUNISHMENT_HISTORY(
             "INSERT INTO `PunishmentHistory` " +
-            "(`name`, `uuid`, `reason`, `operator`, `punishmentType`, `start`, `end`, `calculation`) " +
-            "VALUES (?, ?, ?, ?, ?, ?, ?, ?)",
+                    "(`name`, `uuid`, `reason`, `operator`, `punishmentType`, `start`, `end`, `calculation`) " +
+                    "VALUES (?, ?, ?, ?, ?, ?, ?, ?)",
 
             "INSERT INTO PunishmentHistory " +
-            "(name, uuid, reason, operator, punishmentType, start, end, calculation) " +
-            "VALUES (?, ?, ?, ?, ?, ?, ?, ?)"
+                    "(name, uuid, reason, operator, punishmentType, start, end, calculation) " +
+                    "VALUES (?, ?, ?, ?, ?, ?, ?, ?)"
     ),
     SELECT_EXACT_PUNISHMENT(
             "SELECT * FROM `Punishments` WHERE `uuid` = ? AND `start` = ? AND `punishmentType` = ?",
@@ -130,15 +130,15 @@ public enum SQLQuery {
     );
 
     private String mysql;
-    private String hsqldb;
+    private String sqlite;
 
-    SQLQuery(String mysql, String hsqldb) {
+    SQLQuery(String mysql, String sqlite) {
         this.mysql = mysql;
-        this.hsqldb = hsqldb;
+        this.sqlite = sqlite;
     }
 
     @Override
     public String toString() {
-        return DatabaseManager.get().isUseMySQL() ? mysql : hsqldb;
+        return DatabaseManager.get().isUseMySQL() ? mysql : sqlite;
     }
 }
