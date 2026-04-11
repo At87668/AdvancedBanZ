@@ -1,17 +1,17 @@
 > [!IMPORTANT]  
 > Please keep in mind that this is a fork of the original AdvancedBan plugin. Do not request support for this plugin in the AdvancedBan discord, instead, please make an issue in this repository.
 
-# AdvancedBanZ 3.1.0
+# AdvancedBanZ 4.0.0
 
 Bukkit & BungeeCord Plugin Bundle <br>
-Check out our [Spigot-Page](https://www.spigotmc.org/resources/AdvancedBanZ.117067/) for more  information!
+Check out our [Spigot-Page]() for more information!
 
-![Minecraft Version 1.7-1.21](https://img.shields.io/badge/supports%20minecraft%20versions-1.7--1.21-brightgreen.svg)
+![Minecraft Version 1.7-26.1](https://img.shields.io/badge/supports%20minecraft%20versions-1.7--26.1-brightgreen.svg)
 ![license GPL-3.0](https://img.shields.io/badge/license-GPL--3.0-lightgrey.svg)
 
 _Coded by Leoko_ 
 <br>
-_Updated and Maintained by 2vY (hlpdev)_
+_Updated and Maintained by At87668 (2vY, hlpdev)_
 
 ## Description
 AdvancedBanZ is an updated and modernized version of the original AdvancedBan
@@ -28,40 +28,6 @@ platform.
 
 ## API
 The API requires the AdvancedBanZ plugin to be installed on the server. When making an addon, make sure to make it clear that the main AdvancedBanZ plugin is also required!
-
-#### Maven:
-```xml
-<repositories>
-    ...
-
-    <repository>
-        <id>hnt8</id>
-        <url>https://java.hnt8.net</url>
-    </repository>
-    
-    ...
-</repositories>
-
-<dependencies>
-    ...
-    
-    <dependency>
-        <groupId>net.hnt8.advancedban</groupId>
-        <artifactId>AdvancedBanZ</artifactId>
-        <version>3.1.0</version>
-        <scope>provided</scope>
-    </dependency>
-
-    ...
-</dependencies>
-```
-
-## Goals
-* Sponge Support
-* Velocity Support
-* Forge Support
-* NeoForge Support
-* Fabric Support
 
 
 [//]: # (## API)
