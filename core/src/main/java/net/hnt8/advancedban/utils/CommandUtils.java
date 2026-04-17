@@ -30,16 +30,18 @@ public class CommandUtils {
     public static String processIP(Command.CommandInput input) {
         String name = input.getPrimaryData();
         input.next();
-        if (name.matches("^(?:[0-9]{1,3}\\.){3}[0-9]{1,3}$")) {
+        // allow IPv4 or wildcard patterns like 178.34.*.*
+        if (name.matches("^(?:[0-9]{1,3}|\\*)\\.(?:[0-9]{1,3}|\\*)\\.(?:[0-9]{1,3}|\\*)\\.(?:[0-9]{1,3}|\\*)$")) {
             return name;
         }
-		String ip = Universal.get().getIps().get(name);
 
-		if (ip == null)
-		    MessageManager.sendMessage(input.getSender(), "Ipban.IpNotCashed",
-		            true, "NAME", name);
+        String ip = Universal.get().getIps().get(name);
 
-		return ip;
+        if (ip == null)
+            MessageManager.sendMessage(input.getSender(), "Ipban.IpNotCashed",
+                    true, "NAME", name);
+
+        return ip;
     }
 
     // Builds reason from remaining arguments (null if failed)

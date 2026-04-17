@@ -96,6 +96,14 @@ public enum SQLQuery {
             "SELECT * FROM `Punishments` WHERE `uuid` = ? OR `uuid` = ?",
             "SELECT * FROM Punishments WHERE uuid = ? OR uuid = ?"
     ),
+    SELECT_PUNISHMENTS_WITH_WILDCARD(
+            "SELECT * FROM `Punishments` WHERE `uuid` LIKE '%*%'",
+            "SELECT * FROM Punishments WHERE uuid LIKE '%*%'"
+    ),
+    SELECT_PUNISHMENTS_HISTORY_WITH_WILDCARD(
+            "SELECT * FROM `PunishmentHistory` WHERE `uuid` LIKE '%*%'",
+            "SELECT * FROM PunishmentHistory WHERE uuid LIKE '%*%'"
+    ),
     SELECT_USER_PUNISHMENTS_HISTORY_WITH_IP(
             "SELECT * FROM `PunishmentHistory` WHERE `uuid` = ? OR `uuid` = ?",
             "SELECT * FROM PunishmentHistory WHERE uuid = ? OR uuid = ?"

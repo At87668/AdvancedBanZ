@@ -122,10 +122,14 @@ public class PunishmentManager {
     public List<Punishment> getPunishments(String target, PunishmentType put, boolean current) {
         List<Punishment> ptList = new ArrayList<>();
 
+        boolean targetIsIp = target != null && target.matches("^(?:[0-9]{1,3}\\.){3}[0-9]{1,3}$");
+
         if (isCached(target)) {
             for (Iterator<Punishment> iterator = (current ? punishments : history).iterator(); iterator.hasNext(); ) {
                 Punishment pt = iterator.next();
-                if ((put == null || put == pt.getType().getBasic()) && pt.getUuid().equals(target)) {
+                boolean matchesExact = pt.getUuid().equals(target);
+                boolean matchesWildcard = targetIsIp && pt.getUuid() != null && pt.getUuid().contains("*") && ipMatches(pt.getUuid(), target);
+                if ((put == null || put == pt.getType().getBasic()) && (matchesExact || matchesWildcard)) {
                     if (!current || !pt.isExpired()) {
                         ptList.add(pt);
                     } else {
@@ -135,7 +139,8 @@ public class PunishmentManager {
                 }
             }
         } else {
-            try (ResultSet rs = DatabaseManager.get().executeResultStatement(current ? SQLQuery.SELECT_USER_PUNISHMENTS : SQLQuery.SELECT_USER_PUNISHMENTS_HISTORY, target)) {
+            SQLQuery query = current ? SQLQuery.SELECT_USER_PUNISHMENTS : SQLQuery.SELECT_USER_PUNISHMENTS_HISTORY;
+            try (ResultSet rs = DatabaseManager.get().executeResultStatement(query, target)) {
                 while (rs.next()) {
                     Punishment punishment = getPunishmentFromResultSet(rs);
                     if ((put == null || put == punishment.getType().getBasic()) && (!current || !punishment.isExpired())) {
@@ -143,12 +148,43 @@ public class PunishmentManager {
                     }
                 }
             } catch (SQLException ex) {
-            	Universal universal = universal();
+                Universal universal = universal();
                 universal.getLogger().severe("An error has occurred getting the punishments for " + target);
                 universal.debugSqlException(ex);
             }
+
+            // If the target is an IP, also check wildcard IP punishments stored with '*'
+            if (targetIsIp) {
+                SQLQuery wildcardQuery = current ? SQLQuery.SELECT_PUNISHMENTS_WITH_WILDCARD : SQLQuery.SELECT_PUNISHMENTS_HISTORY_WITH_WILDCARD;
+                try (ResultSet rs = DatabaseManager.get().executeResultStatement(wildcardQuery)) {
+                    while (rs.next()) {
+                        Punishment punishment = getPunishmentFromResultSet(rs);
+                        String pattern = punishment.getUuid();
+                        if (pattern != null && ipMatches(pattern, target) && (put == null || put == punishment.getType().getBasic()) && (!current || !punishment.isExpired())) {
+                            ptList.add(punishment);
+                        }
+                    }
+                } catch (SQLException ex) {
+                    Universal universal = universal();
+                    universal.getLogger().severe("An error has occurred getting wildcard punishments for " + target);
+                    universal.debugSqlException(ex);
+                }
+            }
         }
         return ptList;
+    }
+
+    // Simple IP pattern matcher: pattern may contain '*' in octets, e.g. 178.34.*.*
+    private static boolean ipMatches(String pattern, String ip) {
+        if (pattern == null || ip == null) return false;
+        String[] p = pattern.split("\\.");
+        String[] a = ip.split("\\.");
+        if (p.length != 4 || a.length != 4) return false;
+        for (int i = 0; i < 4; i++) {
+            if (p[i].equals("*")) continue;
+            if (!p[i].equals(a[i])) return false;
+        }
+        return true;
     }
 
     /**
