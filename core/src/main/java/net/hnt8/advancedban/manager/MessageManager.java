@@ -121,7 +121,10 @@ public class MessageManager {
 
     private static String replace(String str, String... parameters) {
         for (int i = 0; i < parameters.length - 1; i = i + 2) {
-            str = str.replaceAll("%" + parameters[i] + "%", parameters[i + 1]);
+            String key = "%" + parameters[i] + "%";
+            String value = parameters[i + 1];
+            // Use literal replacement to avoid regex interpretation in keys or values
+            str = str.replace(key, value == null ? "" : value);
         }
         return str;
     }
