@@ -1,7 +1,7 @@
 # AdvancedBan v4 - Coded by Leoko, Update & Maintained by 2vY (hlpdev) and Author87668
 # For each setting, there is a small description.
 # Please read each description carefully before changing anything.
-# For more information visit: https://modrinth.com/plugin/advancedbanz
+# For more information visit: https://www.spigotmc.org/resources/advancedban.8695/
 
 # If set to false all bans will be saved locally in a SQLite-Database
 UseMySQL: false

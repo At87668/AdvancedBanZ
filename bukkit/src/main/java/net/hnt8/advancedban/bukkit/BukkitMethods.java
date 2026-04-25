@@ -139,7 +139,7 @@ public class BukkitMethods implements MethodInterface {
 
     @Override
     public void setupMetrics() {
-        BukkitMetrics metrics = new BukkitMetrics(getPlugin(), 22106);
+        BukkitMetrics metrics = new BukkitMetrics(getPlugin(), 30940);
         metrics.addCustomChart(new BukkitMetrics.SimplePie("MySQL", () -> DatabaseManager.get().isUseMySQL() ? "yes" : "no"));
     }
 

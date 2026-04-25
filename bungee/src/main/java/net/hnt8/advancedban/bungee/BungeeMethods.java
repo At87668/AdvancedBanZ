@@ -186,7 +186,7 @@ public class BungeeMethods implements MethodInterface {
 
     @Override
     public void setupMetrics() {
-        BungeeMetrics metrics = new BungeeMetrics(getPlugin(), 22106);
+        BungeeMetrics metrics = new BungeeMetrics(getPlugin(), 30941);
         metrics.addCustomChart(new BungeeMetrics.SimplePie("MySQL", () -> DatabaseManager.get().isUseMySQL() ? "yes" : "no"));
     }
 

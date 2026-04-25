@@ -1,7 +1,7 @@
 > [!IMPORTANT]  
 > Please keep in mind that this is a fork of the original AdvancedBan plugin. Do not request support for this plugin in the AdvancedBan discord, instead, please make an issue in this repository.
 
-# AdvancedBanZ 4.0.0
+# AdvancedBanZ 4.0.1
 
 Bukkit & BungeeCord Plugin Bundle <br>
 Check out our [Spigot-Page]() for more information!
